@@ -6,7 +6,6 @@ endif
 
 HEADERS  = $(wildcard *.h)
 OBJECTS  = $(patsubst %.c,%.o,$(wildcard *.c))
-VERSION  = `git describe --tag | sed -e 's/-g/-/'`
 
 CFLAGS	?= \
 	-g3 -pipe -fPIC -std=c99 \
@@ -23,9 +22,6 @@ all: reader
 
 reader: $(OBJECTS) $(HEADERS) Makefile
 	$(CC) $(CFLAGS) $(OBJECTS) $(LDFLAGS) -o $@
-
-install: $(NTC_CTL)
-	install -D reader $(EXEC_DIR)
 
 clean:
 	rm -f *.o reader
