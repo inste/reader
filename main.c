@@ -26,7 +26,7 @@
 
 #define DEVICE			"/dev/ttyUSB0"
 
-//#define __DEBUG__
+#define __DEBUG__
 
 
 struct readings {
@@ -144,6 +144,11 @@ int process_recv(int log_fd, int log_sock_fd, char * recv) {
 						strcpy(global_data[pos].value, tempdata);
 
 						retval = 0;
+
+						snprintf(logtmp, BUFFER, "Updated R=[%s], T=%s *C",
+							global_data[pos].key, global_data[pos].value);
+						write_log(log_fd, log_sock_fd, logtmp);
+
 					} else {
 						snprintf(logtmp, BUFFER, "Unable to find data end delimiter");
 						write_log(log_fd, log_sock_fd, logtmp);
